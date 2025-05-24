@@ -1,8 +1,28 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useState } from 'react';
-import { navLinks } from '../data/navLinks';
-import { Menu, X, Circle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import * as Icons from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+
+// Define the NavLink type
+interface NavLink {
+  id: string;
+  title: string;
+  icon: string;
+}
+
+// Updated navLinks array with specified icons
+export const navLinks: NavLink[] = [
+  { id: 'dashboard', title: 'Dashboard', icon: 'LayoutDashboard' },
+  { id: 'history', title: 'History', icon: 'History' },
+  { id: 'calendar', title: 'Calendar', icon: 'Calendar' },
+  { id: 'appointments', title: 'Appointments', icon: 'ClipboardList' },
+  { id: 'statistics', title: 'Statistics', icon: 'BarChart2' },
+  { id: 'tests', title: 'Tests', icon: 'FlaskConical' },
+  { id: 'chat', title: 'Chat', icon: 'MessageSquare' },
+  { id: 'support', title: 'Support', icon: 'LifeBuoy' },
+  { id: 'settings', title: 'Settings', icon: 'Settings' }
+];
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,13 +52,13 @@ const Sidebar: React.FC = () => {
         } lg:translate-x-0 z-40 h-full py-6 flex flex-col`}
       >
         <div className="px-6 mb-6">
-          <h2 className="text-gray-500 text-sm font-medium uppercase">  </h2>
+          <h2 className="text-gray-500 text-sm font-medium uppercase">Menu</h2>
         </div>
 
         <nav className="flex-1">
           <ul>
             {navLinks.map((link) => {
-              const Icon = (Icons[link.icon as keyof typeof Icons] as LucideIcon) || Circle;
+              const Icon = (Icons[link.icon as keyof typeof Icons] as LucideIcon);
 
               return (
                 <li key={link.id}>
@@ -51,7 +71,7 @@ const Sidebar: React.FC = () => {
                     }`}
                     onClick={() => setIsOpen(false)}
                   >
-                    <Icon size={18} className="mr-3" />
+                    {Icon && <Icon size={18} className="mr-3" />}
                     <span>{link.title}</span>
                   </a>
                 </li>
